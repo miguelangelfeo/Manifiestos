@@ -1,0 +1,37 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: init-db-job
+spec:
+  template:
+    spec:
+      restartPolicy: Never
+      containers:
+        - name: init-db
+          image: postgres:16
+          command: ["psql"]
+          args:
+            - -h
+            - postgres-service
+            - -U
+            - postgres
+            - -d
+            - videojuegos
+            - -c
+            - |
+              CREATE TABLE IF NOT EXISTS juego (
+                  id SERIAL PRIMARY KEY,
+                  nombre VARCHAR(100),
+                  fecha_lanzamiento DATE,
+                  desarollador VARCHAR(150)
+              );
+              CREATE TABLE IF NOT EXISTS critica (
+                  id SERIAL PRIMARY KEY,
+                  juego_id INT REFERENCES juego(id),
+                  nota INT,
+                  critica_parrafo VARCHAR(4000),
+                  fecha_critica DATE
+              );
+          env:
+            - name: PGPASSWORD
+              value: "securor"
