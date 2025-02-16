@@ -10,13 +10,6 @@ spec:
   rules:
   - http:
       paths:
-      - path: /backend
-        pathType: Prefix
-        backend:
-          service:
-            name: backend-juegos-service
-            port:
-              number: 8080
       - path: /
         pathType: Prefix
         backend:
@@ -24,3 +17,11 @@ spec:
             name: frontend-service
             port:
               number: 80
+      - path: /backend
+        pathType: Prefix
+        backend:
+          service:
+            name: backend-nombres-service
+            port:
+              number: 8087
+      

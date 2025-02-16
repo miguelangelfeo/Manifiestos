@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: juancamco/mi-backend:v1  
+        image: miguelfeo/kubernetesback:1.2
         imagePullPolicy: Always  
         ports:
-        - containerPort: 8080
+        - containerPort: 8087
