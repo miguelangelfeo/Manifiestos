@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.backName}}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.backName}}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.backName}}
+    spec:
+      containers:
+      - name: {{ .Values.backName}}
+        image: {{ .Values.imageBack.repository }}:{{ .Values.imageBack.tag }}
+        imagePullPolicy: Always  
+        ports:
+        - containerPort: 8087
+        resources:
+          requests:
+            cpu: "10m"   
+          limits:
+            cpu: "350m"  
+        

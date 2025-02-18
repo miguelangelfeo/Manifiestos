@@ -1,0 +1,48 @@
+#back
+backName: backend
+backService: backend-nombres-service
+
+
+
+imageBack: 
+  repository: miguelfeo/kubernetesback
+  tag: "1.2"
+
+#front
+
+
+frontName: frontend
+frontService: frontend-service
+
+imageFront: 
+  repository: miguelfeo/kubernetesfront
+  tag: "1.1"
+
+nameOverride: ""
+fullnameOverride: ""
+
+ingress:
+  enabled: true
+  name: app-ingress
+  className: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+  paths:
+    - path: /
+      pathType: Prefix
+      serviceName: frontend-service
+      servicePort: 80
+    - path: /backend
+      pathType: Prefix
+      serviceName: backend-nombres-service
+      servicePort: 8087
+
+
+#ahorita resuelvo esto de abajo
+
+
+
+
+
+
