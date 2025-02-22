@@ -1,33 +1,60 @@
-#back
-backName: backend
-backService: backend-nombres-service
+# Configuración del Backend
+backend:
+  name: backend
+  serviceName: backend-nombres-service
 
+  image:
+    repository: miguelfeo/kubernetesback
+    tag: "1.2"
+    pullPolicy: IfNotPresent
 
+  service:
+    type: ClusterIP
+    port: 8087
 
-imageBack: 
-  repository: miguelfeo/kubernetesback
-  tag: "1.2"
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
 
-#front
+# Configuración del Frontend
+frontend:
+  name: frontend
+  serviceName: frontend-service
 
+  image:
+    repository: miguelfeo/kubernetesfront
+    tag: "1.1"
+    pullPolicy: IfNotPresent
 
-frontName: frontend
-frontService: frontend-service
+  service:
+    type: ClusterIP
+    port: 80
 
-imageFront: 
-  repository: miguelfeo/kubernetesfront
-  tag: "1.1"
+  resources:
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+    requests:
+      cpu: "250m"
+      memory: "256Mi"
 
-nameOverride: ""
-fullnameOverride: ""
-
-
-
-
-#ahorita resuelvo esto de abajo
-
-
-
-
-
-
+# Configuración de Ingress
+ingress:
+  enabled: true
+  ingressClassName: nginx
+  annotations:
+    nginx.ingress.kubernetes.io/enable-cors: "true"
+    nginx.ingress.kubernetes.io/cors-allow-origin: "*"
+  paths:
+    - path: /
+      pathType: Prefix
+      serviceName: frontend-service
+      servicePort: 80
+    - path: /backend
+      pathType: Prefix
+      serviceName: backend-nombres-service
+      servicePort: 8087

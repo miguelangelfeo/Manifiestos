@@ -1,19 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ .Values.frontName}} 
+  name: {{ .Values.frontend.name }} 
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: {{ .Values.frontName}} 
+      app: {{ .Values.frontend.name }} 
   template:
     metadata:
       labels:
-        app: {{ .Values.frontName}} 
+        app: {{ .Values.frontend.name }} 
     spec:
       containers:
-      - name: {{ .Values.frontName}} 
-        image: {{ .Values.imageFront.repository }}:{{ .Values.imageFront.tag }}
+      - name: {{ .Values.frontend.name }} 
+        image: {{ .Values.frontend.image.repository }}:{{ .Values.frontend.image.tag }}
         ports:
-        - containerPort: 5173
+        - containerPort: 5173  # Manteniendo el puerto correcto
