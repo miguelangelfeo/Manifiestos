@@ -9,6 +9,6 @@ entries:
     name: appchart
     type: application
     urls:
-    - charts/appchart-0.1.0.tgz
+    - https://miguelangelfeo.github.io/Manifiestos/charts/appchart-0.1.0.tgz
     version: 0.1.0
 generated: "2025-02-18T17:27:08.7988195-05:00"
